@@ -2,7 +2,9 @@
   "name": "api",
   "scripts": {
     "build": "tsc",
-    "start": "node dist"
+    "start": "node dist",
+    "docker:build": "docker build --tag nickblueskylabs/favicon-api:latest .",
+    "docker:push": "docker push nickblueskylabs/favicon-api:latest"
   },
   "dependencies": {
     "fastify": "^3.18.1",
