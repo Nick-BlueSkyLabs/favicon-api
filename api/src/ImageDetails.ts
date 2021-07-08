@@ -4,4 +4,5 @@ export interface ImageDetails {
   url: string;
   md5: string;
   timestamp: number;
+  image: string;
 }

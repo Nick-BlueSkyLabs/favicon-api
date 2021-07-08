@@ -3,7 +3,6 @@ import Fastify from "fastify";
 import { getLatestFaviconFromDatabase } from "./getLatestFaviconFromDatabase";
 import { checkForUpdatedFavicon } from "./checkForUpdatedFavicon";
 import { saveNewFavicon } from "./saveNewFavicon";
-import { getLatestFaviconFromStorage } from "./getLatestFaviconFromStorage";
 import { fetchFaviconFromWebsite } from "./fetchFaviconFromWebsite";
 
 export const app = Fastify({ logger: true });
@@ -17,13 +16,18 @@ app.get("/", async (req, res) => {
 
   const imageDetails = await getLatestFaviconFromDatabase(url);
 
-  // don't await this
-  checkForUpdatedFavicon(url, imageDetails);
-
   if (imageDetails) {
-    const favicon = await getLatestFaviconFromStorage(imageDetails.imageId);
 
-    return favicon;
+    // don't await this
+    checkForUpdatedFavicon(url, imageDetails);
+
+    res.header('Content-Type', `image/x-icon`)
+
+    const favicon = Buffer.from(imageDetails.image, "hex")
+
+    res.send(favicon)
+    return;
+
   }
 
   const favicon = await fetchFaviconFromWebsite(url);
@@ -31,7 +35,9 @@ app.get("/", async (req, res) => {
   // don't await this either
   saveNewFavicon(imageDetails, favicon, url);
 
-  return favicon;
+  res.header('Content-Type', `image/x-icon`)
+  res.send(favicon)
+  return;
 });
 
 

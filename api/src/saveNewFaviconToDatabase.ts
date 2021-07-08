@@ -5,21 +5,20 @@ import { v4 as uuid } from "uuid";
 
 export async function saveNewFaviconToDatabase(
   url: string,
-  md5: string
+  md5: string,
+  image: Buffer
 ): Promise<ImageDetails> {
   const imageId = uuid();
   const timestamp = Date.now();
+  const imageHex = image.toString('hex')
 
-  await (
-    await client
-  ).query(SQL`
-  
-    INSERT INTO favicons
-    ("imageId", "url", "md5", "timestamp")
-    VALUES
-    (${imageId}, "${url}", "${md5}", "${timestamp}")
+  const sql = SQL`
+  INSERT INTO favicon.faviconss
+  ("imageid", "url", "md5", "timestamp", "image")
+  VALUES
+  (${imageId}, ${url}, ${md5}, ${timestamp}, ${imageHex})`;
 
-  `);
+  await (await client).query(sql);
 
-  return { imageId, url, md5, timestamp };
+  return { imageId, url, md5, timestamp, image: imageHex };
 }

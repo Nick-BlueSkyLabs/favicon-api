@@ -6,8 +6,7 @@ export async function checkForUpdatedFavicon(url: string, imageDetails: ImageDet
 
   const TwentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000)
 
-
-  if (imageDetails.timestamp > TwentyFourHoursAgo) {
+  if ((imageDetails?.timestamp || 0) < TwentyFourHoursAgo) {
 
     const image = await fetchFaviconFromWebsite(url);
 
