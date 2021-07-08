@@ -11,10 +11,7 @@ const config = {
   user: "api",
   host: DB_HOST || "localhost",
   database: "bank",
-  port: 26257,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  port: 26257
 };
 
 export const client = (new Pool(config)).connect();
