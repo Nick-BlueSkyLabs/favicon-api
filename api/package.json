@@ -7,6 +7,7 @@
     "docker:push": "docker push nickblueskylabs/favicon-api:latest"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "fastify": "^3.18.1",
     "pg": "^8.6.0",
     "source-map-support": "^0.5.19",
