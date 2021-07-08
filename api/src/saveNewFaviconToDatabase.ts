@@ -13,7 +13,7 @@ export async function saveNewFaviconToDatabase(
   const imageHex = image.toString('hex')
 
   const sql = SQL`
-  INSERT INTO favicon.faviconss
+  INSERT INTO favicon.favicons
   ("imageid", "url", "md5", "timestamp", "image")
   VALUES
   (${imageId}, ${url}, ${md5}, ${timestamp}, ${imageHex})`;
