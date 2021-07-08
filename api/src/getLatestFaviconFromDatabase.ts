@@ -6,7 +6,7 @@ export async function getLatestFaviconFromDatabase(url: string): Promise<ImageDe
   const { rows } = await (await client).query<ImageDetails>(SQL`
   
     SELECT *
-    FROM favicon.faviconss
+    FROM favicon.favicons
     WHERE url = ${url}
     ORDER BY timestamp ASC
     LIMIT 1;
