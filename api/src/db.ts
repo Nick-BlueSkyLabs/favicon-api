@@ -8,7 +8,7 @@ interface ENV {
 const { DB_HOST } = process.env as ENV;
 
 const config = {
-  user: "api",
+  user: "root",
   host: DB_HOST || "localhost",
   database: "bank",
   port: 26257
