@@ -1,32 +1,37 @@
 import Fastify from "fastify";
-import { client } from "./db"
-import SQL from 'sql-template-strings'
+
+import { getLatestFaviconFromDatabase } from "./getLatestFaviconFromDatabase";
+import { checkForUpdatedFavicon } from "./checkForUpdatedFavicon";
+import { saveNewFavicon } from "./saveNewFavicon";
+import { getLatestFaviconFromStorage } from "./getLatestFaviconFromStorage";
+import { fetchFaviconFromWebsite } from "./fetchFaviconFromWebsite";
 
 export const app = Fastify({ logger: true });
 
-interface Account {
-  id: string;
-  balance: string
+interface Query {
+  url: string;
 }
 
 app.get("/", async (req, res) => {
+  const { url } = req.query as Query;
 
-  const { rows } = await (await client).query<Account[]>(SQL`SELECT * FROM accounts`)
-  
-  return { rows }
+  const imageDetails = await getLatestFaviconFromDatabase(url);
 
+  // don't await this
+  checkForUpdatedFavicon(url, imageDetails);
+
+  if (imageDetails) {
+    const favicon = await getLatestFaviconFromStorage(imageDetails.imageId);
+
+    return favicon;
+  }
+
+  const favicon = await fetchFaviconFromWebsite(url);
+
+  // don't await this either
+  saveNewFavicon(imageDetails, favicon, url);
+
+  return favicon;
 });
 
-interface Body {
-  [x: string]: string;
-}
 
-app.post("/", async (req, res) => {
-
-  const { balance } = req.body as Body
-
-  await (await client).query(SQL`INSERT INTO accounts (balance) VALUES (${balance})`)
-  
-  return { done: "success" }
-  
-});
