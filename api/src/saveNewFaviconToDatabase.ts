@@ -1,13 +1,25 @@
 import { client } from "./db";
 import SQL from "sql-template-strings";
 import { ImageDetails } from "./ImageDetails";
-
+import { v4 as uuid } from "uuid";
 
 export async function saveNewFaviconToDatabase(
   url: string,
   md5: string
-): Promise<{ imageId: string; } & Partial<ImageDetails>> {
-  const { rows } = await (await client).query<any>(SQL``);
+): Promise<ImageDetails> {
+  const imageId = uuid();
+  const timestamp = Date.now();
 
-  return rows[0];
+  await (
+    await client
+  ).query(SQL`
+  
+    INSERT INTO favicons
+    ("imageId", "url", "md5", "timestamp")
+    VALUES
+    (${imageId}, "${url}", "${md5}", "${timestamp}")
+
+  `);
+
+  return { imageId, url, md5, timestamp };
 }

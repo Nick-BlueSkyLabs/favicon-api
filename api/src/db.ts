@@ -10,7 +10,7 @@ const { DB_HOST } = process.env as ENV;
 const config = {
   user: "root",
   host: DB_HOST || "localhost",
-  database: "bank",
+  database: "favicon",
   port: 26257
 };
 
