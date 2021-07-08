@@ -17,8 +17,9 @@ app.get("/", async (req, res) => {
 
   const cachedImageDetails = await cache.get(url);
 
-
   if (cachedImageDetails) {
+
+    console.log("using redis cache")
 
     const imageDetails = JSON.parse(cachedImageDetails)
 
@@ -38,8 +39,12 @@ app.get("/", async (req, res) => {
 
   if (imageDetails) {
 
+    console.log("using database")
+
     // don't await this
     checkForUpdatedFavicon(url, imageDetails);
+
+    cache.set(url, JSON.stringify(imageDetails))
 
     res.header('Content-Type', `image/x-icon`)
 
@@ -51,6 +56,9 @@ app.get("/", async (req, res) => {
   }
 
   const favicon = await fetchFaviconFromWebsite(url);
+
+  console.log("fetching from the interwebs")
+
 
   // don't await this either
   saveNewFavicon(imageDetails, favicon, url);

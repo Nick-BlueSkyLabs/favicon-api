@@ -5,7 +5,7 @@ import { ENV } from "./ENV";
 const { REDIS_HOST } = process.env as ENV;
 
 const client = redis.createClient({
-  host: REDIS_HOST
+  host: REDIS_HOST || "localhost"
 });
 
 export const cache = {

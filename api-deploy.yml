@@ -38,4 +38,4 @@ spec:
         - name: DB_HOST
           value: cockroachdb-public
         - name: REDIS_HOST
-          value: redis
+          value: redis-public
