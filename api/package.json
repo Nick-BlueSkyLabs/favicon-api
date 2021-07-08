@@ -2,13 +2,15 @@
   "name": "api",
   "scripts": {
     "build": "tsc",
-    "start": "node dist",
+    "start": "yarn node dist",
     "docker:build": "docker build --tag nickblueskylabs/favicon-api:latest .",
     "docker:push": "docker push nickblueskylabs/favicon-api:latest"
   },
   "dependencies": {
     "fastify": "^3.18.1",
-    "source-map-support": "^0.5.19"
+    "pg": "^8.6.0",
+    "source-map-support": "^0.5.19",
+    "typeorm": "^0.2.34"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
