@@ -48,6 +48,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/redis@npm:^2.8.31":
+  version: 2.8.31
+  resolution: "@types/redis@npm:2.8.31"
+  dependencies:
+    "@types/node": "*"
+  checksum: 01b66179f334b6daef7a4ae2d84046ff65ed50b09eeaeefb96286bda14f5bb5c4f9676526c321d76c33ede63614a394dfa84b80c3e666138db3c4404009c63ee
+  languageName: node
+  linkType: hard
+
 "@types/uuid@npm:^8.3.1":
   version: 8.3.1
   resolution: "@types/uuid@npm:8.3.1"
@@ -82,12 +91,14 @@ __metadata:
     "@types/md5": ^2.3.1
     "@types/node": ^16.0.1
     "@types/pg": ^8.6.1
+    "@types/redis": ^2.8.31
     "@types/uuid": ^8.3.1
     axios: ^0.21.1
     dotenv: ^10.0.0
     fastify: ^3.18.1
     md5: ^2.3.0
     pg: ^8.6.0
+    redis: ^3.1.2
     source-map-support: ^0.5.19
     sql-template-strings: ^2.2.2
     typescript: ^4.3.5
@@ -181,6 +192,13 @@ __metadata:
   version: 4.2.2
   resolution: "deepmerge@npm:4.2.2"
   checksum: 85abf8e0045ee280996e7d2396979c877ef0741e413b716e42441110e0a83ac08098b2a49cea035510060bf667c0eae3189b2a52349f5fa4b000c211041637b1
+  languageName: node
+  linkType: hard
+
+"denque@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "denque@npm:1.5.0"
+  checksum: 3564778cda60c7dee3f1d71e397e50e6b39a8c06118aab9843b9396cb621b3191ab56d13de5237b8beee2b87bec485e8239c58ca3133472d2d1eaa3d2d518022
   languageName: node
   linkType: hard
 
@@ -560,6 +578,41 @@ __metadata:
     string_decoder: ^1.1.1
     util-deprecate: ^1.0.1
   checksum: f178b1daa80d9e58ebba71dbb08486430aa6f0dea3a22a1b7401f3f6983077d0bc0edea43099db06b8d006c9ad48d6383e8fb72c05d5b187670aeaf1b9b44f00
+  languageName: node
+  linkType: hard
+
+"redis-commands@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "redis-commands@npm:1.7.0"
+  checksum: cbf5d33768b1c8e1001e2a7ffdaeb6ef830c538ef812d803a1c5e6038cf03482cf0a22b29eadf1182aa02a522331826e3af0967ae75fa7883da8a139ad2fc77b
+  languageName: node
+  linkType: hard
+
+"redis-errors@npm:^1.0.0, redis-errors@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "redis-errors@npm:1.2.0"
+  checksum: b260bb64a1c8523d32a56701681ac3e5cc6bb0a4eb09f1d30729ebba397021d274216ff189909c08fe3c6b706ec8b74948e20ea410b6f69d31b35bda3fb82a59
+  languageName: node
+  linkType: hard
+
+"redis-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "redis-parser@npm:3.0.0"
+  dependencies:
+    redis-errors: ^1.0.0
+  checksum: 45dbcb05bed2c80a4aac288bbefed2347ecf3508c24d542ab42efa21fd63b5aaca4208b206f05818835a2ac43abe09250c2638c11c3b0b66a5d67e83985e350f
+  languageName: node
+  linkType: hard
+
+"redis@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "redis@npm:3.1.2"
+  dependencies:
+    denque: ^1.5.0
+    redis-commands: ^1.7.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+  checksum: af9b5162aa98e3894fab9914e622019ba3e557c6e2285db419354b83fad30e971defb84600191c48985657d2c33d0c0549990fa4efdb9352e81c9727a309f691
   languageName: node
   linkType: hard
 

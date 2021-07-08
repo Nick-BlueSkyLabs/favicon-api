@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import { cache } from "./redis"
 
 import { getLatestFaviconFromDatabase } from "./getLatestFaviconFromDatabase";
 import { checkForUpdatedFavicon } from "./checkForUpdatedFavicon";
@@ -13,6 +14,25 @@ interface Query {
 
 app.get("/", async (req, res) => {
   const { url } = req.query as Query;
+
+  const cachedImageDetails = await cache.get(url);
+
+
+  if (cachedImageDetails) {
+
+    const imageDetails = JSON.parse(cachedImageDetails)
+
+    // don't await this
+    checkForUpdatedFavicon(url, imageDetails);
+
+    res.header('Content-Type', `image/x-icon`)
+
+    const favicon = Buffer.from(imageDetails.image, "hex")
+
+    res.send(favicon)
+    return;
+
+  }
 
   const imageDetails = await getLatestFaviconFromDatabase(url);
 

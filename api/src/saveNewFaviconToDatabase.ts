@@ -2,6 +2,7 @@ import { client } from "./db";
 import SQL from "sql-template-strings";
 import { ImageDetails } from "./ImageDetails";
 import { v4 as uuid } from "uuid";
+import { cache } from "./redis"
 
 export async function saveNewFaviconToDatabase(
   url: string,
@@ -19,6 +20,8 @@ export async function saveNewFaviconToDatabase(
   (${imageId}, ${url}, ${md5}, ${timestamp}, ${imageHex})`;
 
   await (await client).query(sql);
+
+  await cache.set(url, JSON.stringify({ imageId, url, md5, timestamp, image: imageHex  }))
 
   return { imageId, url, md5, timestamp, image: imageHex };
 }
