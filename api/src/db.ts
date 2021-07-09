@@ -1,8 +1,5 @@
 import { Pool, PoolClient } from "pg";
-import { ENV } from "./ENV";
-
-
-const { DB_HOST } = process.env as ENV;
+import { DB_HOST } from "./ENV";
 
 const config = {
   user: "root",

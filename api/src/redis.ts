@@ -1,8 +1,7 @@
 import { promisify } from "util";
 import redis from "redis";
-import { ENV } from "./ENV";
+import { REDIS_HOST } from "./ENV";
 
-const { REDIS_HOST } = process.env as ENV;
 
 const client = redis.createClient({
   host: REDIS_HOST || "localhost"
